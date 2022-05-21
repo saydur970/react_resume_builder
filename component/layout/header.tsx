@@ -4,7 +4,7 @@ import MenuIcon from '@mui/icons-material/Menu'
 export const Header = () => {
   return (
     <Box sx={{ flexGrow: 1, marginBottom: '1rem' }}>
-      <AppBar position="static">
+      <AppBar position="static" sx={{backgroundColor: '#f44336'}} >
         <Toolbar>
           <IconButton
             size="large"
