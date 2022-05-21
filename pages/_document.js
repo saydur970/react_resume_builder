@@ -23,8 +23,6 @@ import {createEmotionCache} from '../lib/mui/createEmotionCache';
         </Head>
         <body>
           <Main />
-          <div id="model"></div>
-          <div id="model_2"></div>
           <NextScript />
         </body>
       </Html>
