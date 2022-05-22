@@ -2,7 +2,6 @@ import { TResumeDataState } from '../types/resume_state.type'
 
 export const resumeDataReducer = (state:TResumeDataState): TResumeDataState => {
 
-
   return {
 
     initial_data: {
