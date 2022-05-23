@@ -11,16 +11,16 @@ import DashboardCustomizeIcon from '@mui/icons-material/DashboardCustomize';
 import TextDecreaseIcon from '@mui/icons-material/TextDecrease';
 // types
 import { TOptionMenuList } from '..';
-import { IResumeSectionLayout } from '../types/resume_layout.type';
+import { TResumeSectionLayout } from '../types/resume_layout.type';
 
 interface IComp {
-  sectionItemList: IResumeSectionLayout;
-  setSectionItemList: Dispatch<SetStateAction<IResumeSectionLayout>>
+  sectionItemList: TResumeSectionLayout;
+  setSectionItemList: Dispatch<SetStateAction<TResumeSectionLayout>>
 }
 
 export const OptionMenu: FC<IComp> = ({sectionItemList, setSectionItemList}) => {
 
-  const [showMenuModal, setShowMenuModal] = useState(true);
+  const [showMenuModal, setShowMenuModal] = useState(false);
   const [currentMenu, setCurrentMenu] = useState<TOptionMenuList|null>(null);
 
   const modalClickHanlder = () => {

@@ -30,8 +30,9 @@ export const ResumeModal: FC<IComp> = ({ children, clickHanlder }) => {
           }} />
         <SectionCard Sx={{
           position: 'fixed', top: '50%', left: '50%',
-          transform: 'translate(-50%,-50%)', minWidth: '50%',
-          minHeight: '30vh', zIndex: muiZIndex.resumeModal + 1
+          transform: 'translate(-50%,-50%)', minWidth: '60%', maxWidth: '80%',
+          minHeight: '30vh', maxHeight: '80vh', zIndex: muiZIndex.resumeModal + 1,
+          overflow: 'auto'
         }}
         >
           <Grid container>
@@ -44,7 +45,7 @@ export const ResumeModal: FC<IComp> = ({ children, clickHanlder }) => {
               </IconButton>
             </Grid>
 
-            <Grid item xs={12} container>
+            <Grid item xs={12} container justifyContent="center" >
               {children}
             </Grid>
 

@@ -1,9 +1,12 @@
+/** @jsxImportSource @emotion/react */
 import { useState, useRef, Dispatch, SetStateAction, FC, DragEvent } from 'react';
+import { Grid } from '@mui/material';
+import { Typo } from '../../shared/typo';
 // types
-import { TResumeSectionLayout, TResumeSectionItem, TResumeSectionName } 
-from '../types/resume_layout.type';
+import { TResumeSectionLayout, TResumeSectionItem, TResumeSectionName }
+  from '../types/resume_layout.type';
 // styles
-import classes from './layoutMenu.module.css';
+import { layoutMenuStyles } from './layoutMenu.style';
 
 type TItemTemp = TResumeSectionItem & { from: TResumeSectionName; removedItemIdx: number; }
 
@@ -17,14 +20,14 @@ const DROP_POSITION_ATTR = 'dropPositionAttr';
 
 export const LayoutMenu: FC<IComp> = ({ sectionItemList, setSectionItemList }) => {
 
-
   const [tempList, setTempList] = useState<TItemTemp | null>(null);
   const dropItemIdxRef = useRef<null | number>(null);
+  const classes = layoutMenuStyles();
 
   const dragStartHandler =
-  (e: DragEvent<HTMLDivElement>, item: TItemTemp) => {
-    setTempList({ ...item })
-  }
+    (e: DragEvent<HTMLDivElement>, item: TItemTemp) => {
+      setTempList({ ...item })
+    }
 
 
   const dragOverHanlder = (e: DragEvent<HTMLDivElement>, targetListName: TResumeSectionName) => {
@@ -32,7 +35,7 @@ export const LayoutMenu: FC<IComp> = ({ sectionItemList, setSectionItemList }) =
 
     const targetListLength = sectionItemList[targetListName].length;
 
-    if(targetListLength === 0) {
+    if (targetListLength === 0) {
       dropItemIdxRef.current = 0;
       return null;
     }
@@ -63,7 +66,7 @@ export const LayoutMenu: FC<IComp> = ({ sectionItemList, setSectionItemList }) =
 
     if (!dropItemIdx) return null;
 
-    if(dropItemIdx > targetListLength) {
+    if (dropItemIdx > targetListLength) {
       dropItemIdx = targetListLength - 1;
     }
 
@@ -130,13 +133,23 @@ export const LayoutMenu: FC<IComp> = ({ sectionItemList, setSectionItemList }) =
   }
 
 
-  // ===================== render section list =====================
 
-  const renderItem = (listName: TResumeSectionName, color: string) => {
+  /*
+  
+    const renderItem = (listName: TResumeSectionName, cssObj: {[key: string]: any} ) => {
+
+    let xsW = 2;
+    if(listName === 'activeLeftList' || listName === 'activeRightList') {
+      xsW = 3;
+    }
+    else if(listName === 'deactiveList') {
+      xsW = 6;
+    }
 
     return (
 
-      <div className={classes.container} style={{ backgroundColor: color }}
+      <Grid item xs={xsW} container alignItems="center"
+        css={cssObj} 
         onDragOver={(e) => dragOverHanlder(e, listName)}
         onDrop={(e) => dropHandler(e, listName)}
         custom-attribute={DROP_POSITION_ATTR}
@@ -148,15 +161,17 @@ export const LayoutMenu: FC<IComp> = ({ sectionItemList, setSectionItemList }) =
             const currentItem = sectionItemList[listName][el];
 
             return (
-              <div key={idx} className={classes.item}
+              <Grid key={idx} 
+                sx={{width: '6rem'}}
+              css={classes.item}
                 draggable={true}
                 custom-attribute={`${DROP_POSITION_ATTR}_${idx}`}
                 onDragStart={(e) => dragStartHandler(e, {
                   ...currentItem, from: listName, removedItemIdx: idx
                 })}
               >
-                {currentItem.sectionName}
-              </div>
+                <Typo txt={currentItem.sectionName} dotted={true} size="1rem" />
+              </Grid>
             )
 
           })
@@ -164,22 +179,111 @@ export const LayoutMenu: FC<IComp> = ({ sectionItemList, setSectionItemList }) =
 
 
 
-      </div>
+      </Grid>
 
     )
+
+  }
+  
+  */
+
+
+  // ===================== render section list =====================
+
+  const renderItem = (listName: TResumeSectionName) => {
+
+    return Object.keys(sectionItemList[listName]).map((el: any, idx) => {
+
+      const currentItem = sectionItemList[listName][el];
+
+      if(listName === 'deactiveList') {
+        return (
+          <Grid key={idx} item xs={3}
+            css={classes.item}
+            draggable={true}
+            custom-attribute={`${DROP_POSITION_ATTR}_${idx}`}
+            onDragStart={(e) => dragStartHandler(e, {
+              ...currentItem, from: listName, removedItemIdx: idx
+            })}
+          >
+            <Typo txt={currentItem.sectionName} dotted={true} size="1rem"
+              align="center"
+            />
+          </Grid>
+        )
+      }
+
+      return (
+        <div key={idx} 
+        style={{flex: '1 1 auto', width: '80%'}}
+        css={classes.item}
+        draggable={true}
+        custom-attribute={`${DROP_POSITION_ATTR}_${idx}`}
+        onDragStart={(e) => dragStartHandler(e, {
+          ...currentItem, from: listName, removedItemIdx: idx
+        })}
+      >
+        {currentItem.sectionName}
+      </div>
+      )
+
+    })
 
   }
 
 
   return (
-    <div className={classes.app} >
+    <Grid item xs={12} container justifyContent="space-between" alignItems="flex-start"
+      sx={{marginTop: '3rem'}}
+    >
 
-      {renderItem('activeLeftList', '#ccc')}
-      {renderItem('activeRightList', '#ddd')}
-      {renderItem('deactiveList', 'gray')}
+      {/* // ================ Layout part ======================== */}
+      <Grid item xs={6} container sx={{ backgroundColor: '#ccc', minHeight: '30rem' }} >
 
-    </div>
+        {/* ============= left part ============= */}
+        <Grid item xs={6} container alignItems="center" flexDirection="column"
+          onDragOver={(e) => dragOverHanlder(e, 'activeLeftList')}
+          onDrop={(e) => dropHandler(e, 'activeLeftList')}
+          custom-attribute={DROP_POSITION_ATTR}
+        >
+          {renderItem('activeLeftList')}
+        </Grid>
+
+        {/* ============= right part ============= */}
+        <Grid item xs={6} container alignItems="center" flexDirection="column"
+          onDragOver={(e) => dragOverHanlder(e, 'activeRightList')}
+          onDrop={(e) => dropHandler(e, 'activeRightList')}
+          custom-attribute={DROP_POSITION_ATTR}
+        >
+          {renderItem('activeRightList')}
+        </Grid>
+
+      </Grid>
+
+
+      {/* // ================ deactive part ======================== */}
+      <Grid item xs={5} container alignItems="flex-start"
+        onDragOver={(e) => dragOverHanlder(e, 'deactiveList')}
+        onDrop={(e) => dropHandler(e, 'deactiveList')}
+        custom-attribute={DROP_POSITION_ATTR}
+        sx={{ backgroundColor: 'gray', minHeight: '30rem'}}
+      >
+        {renderItem('deactiveList')}
+      </Grid>
+
+    </Grid>
   )
+
+
+  // return (
+  //   <Grid item xs={12} container >
+
+  //     {renderItem('activeLeftList', classes.container )}
+  //     {renderItem('activeRightList', classes.container)}
+  //     {renderItem('deactiveList', {...classes.container, ...classes.containerDeactive})}
+
+  //   </Grid>
+  // )
 
 
 };
