@@ -14,11 +14,9 @@ import { TOptionMenuList } from '..';
 import { TResumeSectionLayout } from '../types/resume_layout.type';
 
 interface IComp {
-  sectionItemList: TResumeSectionLayout;
-  setSectionItemList: Dispatch<SetStateAction<TResumeSectionLayout>>
 }
 
-export const OptionMenu: FC<IComp> = ({sectionItemList, setSectionItemList}) => {
+export const OptionMenu: FC<IComp> = () => {
 
   const [showMenuModal, setShowMenuModal] = useState(false);
   const [currentMenu, setCurrentMenu] = useState<TOptionMenuList|null>(null);
@@ -41,7 +39,7 @@ export const OptionMenu: FC<IComp> = ({sectionItemList, setSectionItemList}) => 
         return null;
       
       case 'layout':
-        return <LayoutMenu sectionItemList={sectionItemList} setSectionItemList={setSectionItemList} />;
+        return <LayoutMenu />;
 
       default:
         return null;

@@ -7,19 +7,15 @@ import { TResumeSectionLayout, TResumeSectionItem, TResumeSectionName }
   from '../types/resume_layout.type';
 // styles
 import { layoutMenuStyles } from './layoutMenu.style';
+import { useResumeContext } from '../context/resume.context';
 
 type TItemTemp = TResumeSectionItem & { from: TResumeSectionName; removedItemIdx: number; }
 
-
-interface IComp {
-  sectionItemList: TResumeSectionLayout;
-  setSectionItemList: Dispatch<SetStateAction<TResumeSectionLayout>>
-}
-
 const DROP_POSITION_ATTR = 'dropPositionAttr';
 
-export const LayoutMenu: FC<IComp> = ({ sectionItemList, setSectionItemList }) => {
+export const LayoutMenu: FC = () => {
 
+  const { sectionItemList, setSectionItemList } = useResumeContext();
   const [tempList, setTempList] = useState<TItemTemp | null>(null);
   const dropItemIdxRef = useRef<null | number>(null);
   const classes = layoutMenuStyles();
