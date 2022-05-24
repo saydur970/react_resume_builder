@@ -3,7 +3,7 @@ type fieldErrorMsg = { errMsg: string|null };
 
 type TIsSectionValid = { isValid: boolean; isChecked: boolean }
 
-export type TResumeDataState = {
+export type TResumeDataReducer = {
 
   initial_data: {
     data: {
