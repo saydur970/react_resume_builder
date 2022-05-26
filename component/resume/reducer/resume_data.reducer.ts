@@ -1,6 +1,6 @@
-import { TResumeDataReducer } from '../types/resume_state.type';
+import { TResumeDataDispatchAction, TResumeDataReducer } from '../types/resume_state.type';
 
-export const resumeDataReducerInitial = {
+export const resumeDataReducerInitial: TResumeDataReducer = {
 
   initial_data: {
     data: {
@@ -15,24 +15,40 @@ export const resumeDataReducerInitial = {
     validation: { isValid: false, isChecked: false }
   },
 
-  about: {
+  About: {
     data: { errMsg: null, value: '' },
     validation: { isValid: false, isChecked: false }
   },
 
-  experiences: {
+  Experiences: {
     data: { },
     err: { errMsg: null },
     validation: { isValid: false, isChecked: false }
   },
 
-  education: {
+  Education: {
     data: {},
     err: { errMsg: null },
     validation: { isValid: false, isChecked: false }
   },
 
-  skills: {
+  Skills: {
+    data: {},
+    err: { errMsg: null },
+    validation: { isValid: false, isChecked: false }
+  },
+
+  Work: {
+    data: { errMsg: null, value: '' },
+    validation: { isValid: false, isChecked: false }
+  },
+
+  Projects: {
+    data: { errMsg: null, value: '' },
+    validation: { isValid: false, isChecked: false }
+  },
+
+  References: {
     data: {},
     err: { errMsg: null },
     validation: { isValid: false, isChecked: false }
@@ -40,47 +56,35 @@ export const resumeDataReducerInitial = {
 
 };
 
-export const resumeDataReducer = (state:TResumeDataReducer): TResumeDataReducer => {
+export const resumeDataReducer = 
+(state:TResumeDataReducer, action: TResumeDataDispatchAction): TResumeDataReducer => {
 
-  return {
+  switch(action.type) {
 
-    initial_data: {
-      data: {
-        firstName: { errMsg: null, value: '' },
-        lastName: { errMsg: null, value: '' },
-        email: { errMsg: null, value: '' },
-        phoneNumber: { errMsg: null, value: '' },
-        address: { errMsg: null, value: '' },
-        district: { errMsg: null, value: '' },
-        division: { errMsg: null, value: '' },
-      },
-      validation: { isValid: false, isChecked: false }
-    },
+    case 'initial_data_name': {
+      
+      // ==================== Handle About section =========================
+      const currentVal = state.About;
 
-    about: {
-      data: { errMsg: null, value: '' },
-      validation: { isValid: false, isChecked: false }
-    },
+      return {
+        ...state,
+        About: {
+          ...currentVal,
+          data: {
+            ...currentVal.data,
+            value: action.payload
+          }
+        }
+      }
 
-    experiences: {
-      data: { },
-      err: { errMsg: null },
-      validation: { isValid: false, isChecked: false }
-    },
-
-    education: {
-      data: {},
-      err: { errMsg: null },
-      validation: { isValid: false, isChecked: false }
-    },
-
-    skills: {
-      data: {},
-      err: { errMsg: null },
-      validation: { isValid: false, isChecked: false }
     }
 
+
+
   }
+
+
+  return {...state}
 
 
 }

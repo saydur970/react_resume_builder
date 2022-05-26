@@ -1,12 +1,32 @@
-import React from 'react'
+import { Grid, TextField } from '@mui/material';
 // context
 import { useResumeContext } from '../../context/resume.context';
 
-export const InitialData = () => {
+export const InitialDataSection = () => {
 
-  const { resumeDataReducer } = useResumeContext();
 
   return (
-    <div>initial_data</div>
+    <Grid item xs={12} container>
+
+      <Grid item xs={12}>
+
+
+
+      <TextField id="standard-basic" label="Standard" variant="standard"
+      //      InputProps={{
+      //       style: {
+      //         color: '#000',
+      //         borderBottom: '0.1rem solid #ccc'
+      //       }
+      //   }}
+      //   InputLabelProps={{
+      //     style: {
+      //       color: '#000'
+      //     }
+      // }}
+      />
+      </Grid>
+
+    </Grid>
   )
 };

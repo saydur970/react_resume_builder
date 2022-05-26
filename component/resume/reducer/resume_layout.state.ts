@@ -1,4 +1,5 @@
 import { TResumeSectionLayout } from "../types/resume_layout.type";
+import { IResumeUtilState } from "../types/resume_util.type";
 
 export const resumeSectionLayoutState: TResumeSectionLayout = {
 
@@ -6,7 +7,7 @@ export const resumeSectionLayoutState: TResumeSectionLayout = {
   
   activeLeftList: [
     { sectionName: 'Work' },
-    { sectionName: 'Education' }
+    { sectionName: 'Education' },
   ],
 
   activeRightList: [
@@ -15,21 +16,25 @@ export const resumeSectionLayoutState: TResumeSectionLayout = {
   ],
 
   deactiveList: [
-    { sectionName: 'Experience' },
+    { sectionName: 'Experiences' },
     { sectionName: 'References' },
-    { sectionName: 'Awards' },
-    { sectionName: 'Interests' },
-    { sectionName: 'Technology Skills' },
-    { sectionName: 'Volunteer' },
-    { sectionName: 'Publications' },
-    { sectionName: 'Language' },
-    { sectionName: 'Certificates' },
-    { sectionName: 'Memberships' },
-    { sectionName: 'Leadership' },
-    { sectionName: 'Teaching' },
-    { sectionName: 'Conferences and Courses' },
+
+    // { sectionName: 'Awards' },
+    // { sectionName: 'Interests' },
+    // { sectionName: 'technology_skills' },
+    // { sectionName: 'Volunteer' },
+    // { sectionName: 'Publications' },
+    // { sectionName: 'Language' },
+    // { sectionName: 'Certificates' },
+    // { sectionName: 'Memberships' },
+    // { sectionName: 'Leadership' },
+    // { sectionName: 'Teaching' },
+    // { sectionName: 'conferences_and_courses' },
+    
   ]
 
+}
 
-
+export const resumeUtilState: IResumeUtilState = {
+  isSectionModelOpen: true
 }

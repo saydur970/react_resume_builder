@@ -4,7 +4,7 @@ import { Grid } from '@mui/material';
 // comp
 import { OptionMenu } from './menu/optionMenu';
 import { resumeDataReducer, resumeDataReducerInitial } from './reducer/resume_data.reducer';
-import { resumeSectionLayoutState } from './reducer/resume_layout.state';
+import { resumeSectionLayoutState, resumeUtilState } from './reducer/resume_layout.state';
 // context
 import { ResumeContext } from './context/resume.context';
 // types
@@ -18,13 +18,15 @@ export const Resume = () => {
   const [sectionItemList, setSectionItemList] = 
   useState<TResumeSectionLayout>(resumeSectionLayoutState);
   const [ state, dispatch ] = useReducer(resumeDataReducer, resumeDataReducerInitial);
+  const [utilState, setUtilState] = useState(resumeUtilState);
 
   return (
     <ResumeContext.Provider value={{
       sectionItemList, setSectionItemList,
-      resumeDataReducer: state
+      dataReducer: state, dataDispatch: dispatch,
+      utilState, setUtilState
     }} >
-    <Grid item xs={12} container>
+    <Grid item xs={12} container justifyContent="center" >
 
       <OptionMenu />
 

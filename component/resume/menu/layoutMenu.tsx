@@ -26,7 +26,8 @@ export const LayoutMenu: FC = () => {
     }
 
 
-  const dragOverHanlder = (e: DragEvent<HTMLDivElement>, targetListName: TResumeSectionName) => {
+  const dragOverHanlder = 
+  (e: DragEvent<HTMLDivElement>, targetListName: TResumeSectionName) => {
     e.preventDefault();
 
     const targetListLength = sectionItemList[targetListName].length;
@@ -183,6 +184,10 @@ export const LayoutMenu: FC = () => {
   
   */
 
+  const getReadableName = (name: string): string => {
+    return name.split('_').join(' ');
+  }
+
 
   // ===================== render section list =====================
 
@@ -202,8 +207,9 @@ export const LayoutMenu: FC = () => {
               ...currentItem, from: listName, removedItemIdx: idx
             })}
           >
-            <Typo txt={currentItem.sectionName} dotted={true} size="1rem"
-              align="center"
+            <Typo txt={getReadableName(currentItem.sectionName)} 
+              dotted={true} size="1rem"
+              align="center" color="#fff"
             />
           </Grid>
         )
@@ -219,7 +225,7 @@ export const LayoutMenu: FC = () => {
           ...currentItem, from: listName, removedItemIdx: idx
         })}
       >
-        {currentItem.sectionName}
+        {getReadableName(currentItem.sectionName)}
       </div>
       )
 

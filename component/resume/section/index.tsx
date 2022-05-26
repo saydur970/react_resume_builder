@@ -1,7 +1,15 @@
-import React from 'react'
+import { FC } from 'react';
+import { Grid } from '@mui/material';
+import { TSectionItemName } from '../types/resume_state.type';
 
-export const Section = () => {
+interface IComp {
+  sectionName: TSectionItemName;
+}
+
+export const Section: FC<IComp> = ({ sectionName }) => {
   return (
-    <div>index</div>
+    <Grid item xs={12} sx={{ margin: '2rem 0' }} >
+      {sectionName}
+    </Grid>
   )
 };

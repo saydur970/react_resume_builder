@@ -1,4 +1,6 @@
-export type TResumeSectionItem = { sectionName: string; }
+import { TSectionItemName } from "./resume_state.type";
+
+export type TResumeSectionItem = { sectionName: TSectionItemName; }
 
 export type TResumeSectionName = 
 'activeLinearList'| 'activeLeftList'| 'activeRightList'| 'deactiveList';

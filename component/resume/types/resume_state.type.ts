@@ -1,7 +1,9 @@
-
 type fieldErrorMsg = { errMsg: string|null };
 
 type TIsSectionValid = { isValid: boolean; isChecked: boolean }
+
+export type TSectionItemName = 'initial_data'| 'About'| 'Experiences'| 'Education'|
+'Skills'| 'Work'| 'Projects'| 'References';
 
 export type TResumeDataReducer = {
 
@@ -16,14 +18,14 @@ export type TResumeDataReducer = {
       division: fieldErrorMsg & { value: string };
     };
     validation: TIsSectionValid
-  },
+  };
 
-  about: {
+  About: {
     data: fieldErrorMsg & { value: string; };
     validation: TIsSectionValid;
-  },
+  };
 
-  experiences: {
+  Experiences: {
     data: {
       [key: number]: {
         organizationName: fieldErrorMsg & { value: string };
@@ -40,7 +42,7 @@ export type TResumeDataReducer = {
     validation: TIsSectionValid
   };
 
-  education: {
+  Education: {
     data: {
       [key: number]: {
         instituteName: fieldErrorMsg & { value: string };
@@ -54,7 +56,7 @@ export type TResumeDataReducer = {
     validation: TIsSectionValid
   };
 
-  skills: {
+  Skills: {
     data: {
       [key: number]: fieldErrorMsg & { value: string };
     };
@@ -62,5 +64,27 @@ export type TResumeDataReducer = {
     validation: TIsSectionValid
   };
 
+  Work: {
+    data: fieldErrorMsg & { value: string; };
+    validation: TIsSectionValid;
+  };
+
+  Projects: {
+    data: fieldErrorMsg & { value: string; };
+    validation: TIsSectionValid;
+  },
+
+  References: {
+    data: {
+      [key: number]: fieldErrorMsg & { value: string };
+    };
+    err: fieldErrorMsg;
+    validation: TIsSectionValid;
+  }
+
 }
+
+
+export type TResumeDataDispatchAction =
+  { type: 'initial_data_name', payload: string }
 

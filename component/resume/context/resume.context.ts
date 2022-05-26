@@ -1,12 +1,16 @@
 import { useContext, createContext, Dispatch, SetStateAction } from 'react';
 // types
 import { TResumeSectionLayout } from '../types/resume_layout.type';
-import { TResumeDataReducer } from '../types/resume_state.type';
+import { TResumeDataDispatchAction, TResumeDataReducer } from '../types/resume_state.type';
+import { IResumeUtilState } from '../types/resume_util.type';
 
 interface IResumeContext {
   sectionItemList: TResumeSectionLayout;
   setSectionItemList: Dispatch<SetStateAction<TResumeSectionLayout>>;
-  resumeDataReducer: TResumeDataReducer
+  dataReducer: TResumeDataReducer;
+  dataDispatch: Dispatch<TResumeDataDispatchAction>
+  utilState: IResumeUtilState;
+  setUtilState: Dispatch<SetStateAction<IResumeUtilState>>;
 }
 
 // @ts-ignore
