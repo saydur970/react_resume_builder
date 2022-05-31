@@ -11,11 +11,12 @@ export const resumeSectionLayoutState: TResumeSectionLayout = {
   ],
 
   activeRightList: [
+    { sectionName: 'About' },
     { sectionName: 'Skills' },
-    { sectionName: 'Projects' },
   ],
 
   deactiveList: [
+    { sectionName: 'Projects' },
     { sectionName: 'Experiences' },
     { sectionName: 'References' },
 
@@ -36,5 +37,6 @@ export const resumeSectionLayoutState: TResumeSectionLayout = {
 }
 
 export const resumeUtilState: IResumeUtilState = {
-  isSectionModelOpen: true
+  isSectionModelOpen: true,
+  currentSection: null
 }

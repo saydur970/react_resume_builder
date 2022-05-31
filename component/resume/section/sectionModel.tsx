@@ -20,7 +20,7 @@ export const SectionModel: FC<IComp> = ({ children, mainHeader, secondaryHeader 
   return (
     <ResumeModal 
       clickHanlder={
-        () => {setUtilState({...utilState, isSectionModelOpen: false}) }
+        () => {setUtilState({...utilState, isSectionModelOpen: false, currentSection: null}) }
       } 
     >
 

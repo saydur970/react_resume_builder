@@ -20,6 +20,8 @@ export const Resume = () => {
   const [ state, dispatch ] = useReducer(resumeDataReducer, resumeDataReducerInitial);
   const [utilState, setUtilState] = useState(resumeUtilState);
 
+  console.log(utilState)
+
   return (
     <ResumeContext.Provider value={{
       sectionItemList, setSectionItemList,

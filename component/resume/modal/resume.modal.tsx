@@ -35,7 +35,9 @@ export const ResumeModal: FC<IComp> = ({ children, clickHanlder }) => {
           overflow: 'auto'
         }}
         >
-          <Grid container sx={{padding: '2rem'}} >
+          <Grid container sx={{padding: '2rem'}}
+            onClick={e => e.stopPropagation()}
+          >
 
             <Grid item xs={12} container justifyContent="flex-end" >
               <IconButton
