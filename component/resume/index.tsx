@@ -2,14 +2,14 @@
 import { useReducer, useState } from 'react';
 import { Grid } from '@mui/material';
 // comp
-import { OptionMenu } from './menu/optionMenu';
+import { OptionMenu } from './comp/menu/optionMenu';
 import { resumeDataReducer, resumeDataReducerInitial } from './reducer/resume_data.reducer';
 import { resumeSectionLayoutState, resumeUtilState } from './reducer/resume_layout.state';
 // context
 import { ResumeContext } from './context/resume.context';
 // types
 import { TResumeSectionLayout } from './types/resume_layout.type';
-import { Preview } from './preview';
+import { Preview } from './comp/preview';
 
 export type TOptionMenuList = 'layout'| 'font'| 'theme';
 
@@ -19,8 +19,6 @@ export const Resume = () => {
   useState<TResumeSectionLayout>(resumeSectionLayoutState);
   const [ state, dispatch ] = useReducer(resumeDataReducer, resumeDataReducerInitial);
   const [utilState, setUtilState] = useState(resumeUtilState);
-
-  console.log(utilState)
 
   return (
     <ResumeContext.Provider value={{

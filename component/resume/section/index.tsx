@@ -30,7 +30,15 @@ export const Section: FC<IComp> = ({ sectionName }) => {
         ({ ...prev, currentSection: sectionName, isSectionModelOpen: true })
       )}
     >
+
+      <Grid item xs={12} sx={{ marginBottom: '1rem'}} >
+        <Typo txt={sectionName} variant="h4" size="1.8rem" 
+          weight={500} margin="0rem 0rem 0.2rem 0.5rem"
+        />
+      </Grid>
+
       {sectionRender()}
+
     </Grid>
   )
 };

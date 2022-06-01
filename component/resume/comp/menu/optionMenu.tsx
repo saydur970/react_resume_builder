@@ -1,17 +1,16 @@
 // module
-import { useState, Dispatch, SetStateAction, FC } from 'react';
+import { useState, FC } from 'react';
 import { Grid, IconButton } from '@mui/material';
 // comp
-import { ResumeModal } from '../modal/resume.modal';
-import { SectionCard } from '../../shared/sectionCard';
+import { ResumeModal } from '../../modal/resume.modal';
+import { SectionCard } from '../../../shared/sectionCard';
 import { LayoutMenu } from './layoutMenu';
 // icons
 import ModeEditOutlineIcon from '@mui/icons-material/ModeEditOutline';
 import DashboardCustomizeIcon from '@mui/icons-material/DashboardCustomize';
 import TextDecreaseIcon from '@mui/icons-material/TextDecrease';
 // types
-import { TOptionMenuList } from '..';
-import { TResumeSectionLayout } from '../types/resume_layout.type';
+import { TOptionMenuList } from '../..';
 
 interface IComp {
 }

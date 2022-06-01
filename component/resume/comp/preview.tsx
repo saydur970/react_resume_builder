@@ -1,10 +1,10 @@
 import { Grid } from '@mui/material';
-import { InitialDataSection } from './section/items/initial_data';
-import { AboutSection } from './section/items/about';
-import { useResumeContext } from './context/resume.context';
-import { Section } from './section';
+import { InitialDataSection } from '../section/items/initial_data';
+import { AboutSection } from '../section/items/about';
+import { useResumeContext } from '../context/resume.context';
+import { Section } from '../section';
 import { Fragment } from 'react';
-import { SectionModel } from './section/sectionModel';
+import { SectionModel } from '../section/sectionModel';
 
 export const Preview = () => {
 

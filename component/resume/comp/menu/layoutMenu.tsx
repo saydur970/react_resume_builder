@@ -1,13 +1,13 @@
 /** @jsxImportSource @emotion/react */
 import { useState, useRef, Dispatch, SetStateAction, FC, DragEvent } from 'react';
 import { Grid } from '@mui/material';
-import { Typo } from '../../shared/typo';
+import { Typo } from '../../../shared/typo';
 // types
 import { TResumeSectionLayout, TResumeSectionItem, TResumeSectionName }
-  from '../types/resume_layout.type';
+  from '../../types/resume_layout.type';
 // styles
 import { layoutMenuStyles } from './layoutMenu.style';
-import { useResumeContext } from '../context/resume.context';
+import { useResumeContext } from '../../context/resume.context';
 
 type TItemTemp = TResumeSectionItem & { from: TResumeSectionName; removedItemIdx: number; }
 
