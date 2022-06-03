@@ -57,12 +57,18 @@ export type TResumeDataReducer = {
   };
 
   Skills: {
-    data: {
-      [key: number]: fieldErrorMsg & { value: string };
-    };
+    data: string[];
     err: fieldErrorMsg;
     validation: TIsSectionValid
   };
+
+  // Skills: {
+  //   data: {
+  //     [key: number]: fieldErrorMsg & { value: string };
+  //   };
+  //   err: fieldErrorMsg;
+  //   validation: TIsSectionValid
+  // };
 
   Work: {
     data: fieldErrorMsg & { value: string; };
@@ -86,5 +92,7 @@ export type TResumeDataReducer = {
 
 
 export type TResumeDataDispatchAction =
-  { type: 'initial_data_name', payload: string }
+  { type: 'initial_data_name', payload: string } |
+  { type: 'skills_add', payload: string } |
+  { type: 'skills_remove', payload: number }
 

@@ -4,6 +4,7 @@ import { TSectionItemName } from '../types/resume_state.type';
 import { useResumeContext } from '../context/resume.context';
 import { AboutSection } from './items/about';
 import { Typo } from '../../shared/typo';
+import { SkillSection } from './items/skills';
 
 interface IComp {
   sectionName: TSectionItemName;
@@ -18,6 +19,8 @@ export const Section: FC<IComp> = ({ sectionName }) => {
     switch(sectionName) {
       case 'About':
         return <AboutSection />;
+      case 'Skills':
+        return <SkillSection />;
       default:
         return <Typo txt={sectionName} />;
     }

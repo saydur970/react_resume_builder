@@ -33,7 +33,7 @@ export const resumeDataReducerInitial: TResumeDataReducer = {
   },
 
   Skills: {
-    data: {},
+    data: [],
     err: { errMsg: null },
     validation: { isValid: false, isChecked: false }
   },
@@ -79,12 +79,40 @@ export const resumeDataReducer =
 
     }
 
+    // ==================== Skill Add section =========================
+    case 'skills_add': {
+      const currentVal = state.Skills.data;
+      return {
+        ...state,
+        Skills: {
+          ...state.Skills,
+          data: [...currentVal, action.payload]
+        }
+      }
+    }
+
+    // ==================== Skill remove section =========================
+    case 'skills_remove': {
+      const newSkillList = [...state.Skills.data];
+      newSkillList.splice(action.payload, 1);
+
+      return {
+        ...state,
+        Skills: {
+          ...state.Skills,
+          data: [...newSkillList]
+        }
+      }
+    }
+
+
+
+    default:
+      return state;
+
 
 
   }
-
-
-  return {...state}
 
 
 }

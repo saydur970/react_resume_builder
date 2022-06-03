@@ -6,24 +6,21 @@ import { useResumeContext } from '../context/resume.context';
 
 
 interface IComp {
-  children: ReactNode;
+  childrenInput: ReactNode;
+  childrenExample?: ReactNode;
   mainHeader: string;
   secondaryHeader?: string;
 }
 
-export const SectionModel: FC<IComp> = ({ children, mainHeader, secondaryHeader }) => {
+export const SectionModel: FC<IComp> = ({ childrenInput, childrenExample, mainHeader, 
+  secondaryHeader }) => {
 
   const { utilState, setUtilState } = useResumeContext();
 
-  if(!utilState.isSectionModelOpen) return null;
+  if (!utilState.isSectionModelOpen) return null;
 
-  return (
-    <ResumeModal 
-      clickHanlder={
-        () => {setUtilState({...utilState, isSectionModelOpen: false, currentSection: null}) }
-      } 
-    >
-
+  const firstChildRender = () => (
+    <>
       <Grid item xs={12} sx={{ marginBottom: '1.5rem' }} >
         <Typo txt={mainHeader} variant="h3" weight={500} />
       </Grid>
@@ -35,7 +32,52 @@ export const SectionModel: FC<IComp> = ({ children, mainHeader, secondaryHeader 
         </Grid>
       }
 
-      {children}
+      <Grid item xs={12} container>
+        {childrenInput}
+      </Grid>
+
+    </>
+  )
+
+  const childRender = () => {
+
+    if (childrenExample) {
+      return (
+        <Grid item xs={12} container alignItems="flex-start" justifyContent="space-between">
+
+          <Grid item xs={5} container>
+            {firstChildRender()}
+          </Grid>
+
+          <Grid item xs={5} container 
+            sx={{backgroundColor: '#f8f8fa', padding: '1rem 2rem', maxHeight: '80vh', overflowY: 'auto'}} 
+          >
+            {childrenExample}
+          </Grid>
+
+        </Grid>
+      )
+    }
+
+    return (
+      <Grid item xs={12} container>
+        {firstChildRender()}
+      </Grid>
+    )
+
+
+  }
+
+  return (
+    <ResumeModal
+      clickHanlder={
+        () => { setUtilState({ ...utilState, isSectionModelOpen: false, currentSection: null }) }
+      }
+    >
+
+      <Grid item xs={12} container sx={{ marginTop: '1.5rem', height: '70vh'}}>
+        {childRender()}
+      </Grid>
 
     </ResumeModal>
   )
