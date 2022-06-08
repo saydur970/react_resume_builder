@@ -13,6 +13,8 @@ import { Preview } from './comp/preview';
 
 export type TOptionMenuList = 'layout'| 'font'| 'theme';
 
+export const resumeFontSize = '1.4rem';
+
 export const Resume = () => {
 
   const [sectionItemList, setSectionItemList] = 

@@ -5,10 +5,11 @@ import { red } from '@mui/material/colors';
 export const theme = createTheme({
   palette: {
 
-    // mode: 'dark',
+    // mode: 'dark', 
 
     primary: {
-      main: '#f44336'
+      main: '#1976d2'
+      // main: '#f44336'
     },
     secondary: {
       main: '#f39c12'
@@ -26,4 +27,10 @@ export const theme = createTheme({
 
 export const muiZIndex = {
   resumeModal: 910
+}
+
+export const themeColor = {
+
+  primary: '#1976d2'
+
 }

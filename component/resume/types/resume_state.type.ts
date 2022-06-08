@@ -47,7 +47,9 @@ export type TResumeDataReducer = {
       [key: number]: {
         instituteName: fieldErrorMsg & { value: string };
         subject: fieldErrorMsg & { value: string };
-        completionDate: fieldErrorMsg & { value: Date };
+        completionDate: fieldErrorMsg & { value: {
+          year: number; month: string;
+        }|null };
         result?: fieldErrorMsg & { value: string };
         comment?: fieldErrorMsg & { value: string };
       };

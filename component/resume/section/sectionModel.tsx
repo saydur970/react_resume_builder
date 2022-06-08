@@ -50,7 +50,8 @@ export const SectionModel: FC<IComp> = ({ childrenInput, childrenExample, mainHe
           </Grid>
 
           <Grid item xs={5} container 
-            sx={{backgroundColor: '#f8f8fa', padding: '1rem 2rem', maxHeight: '80vh', overflowY: 'auto'}} 
+            sx={{backgroundColor: '#f8f8fa', padding: '1rem 2rem', 
+            maxHeight: '80vh', overflowY: 'auto'}} 
           >
             {childrenExample}
           </Grid>
@@ -60,7 +61,7 @@ export const SectionModel: FC<IComp> = ({ childrenInput, childrenExample, mainHe
     }
 
     return (
-      <Grid item xs={12} container>
+      <Grid item xs={12} container alignItems="flex-start">
         {firstChildRender()}
       </Grid>
     )
@@ -75,7 +76,7 @@ export const SectionModel: FC<IComp> = ({ childrenInput, childrenExample, mainHe
       }
     >
 
-      <Grid item xs={12} container sx={{ marginTop: '1.5rem', height: '70vh'}}>
+      <Grid item xs={12} container sx={{ marginTop: '1.5rem'}}>
         {childRender()}
       </Grid>
 

@@ -1,4 +1,5 @@
 import { useState, Fragment } from 'react';
+import { resumeFontSize } from '../..';
 import { useResumeContext } from '../../context/resume.context';
 import { Grid, IconButton } from '@mui/material';
 import { Typo } from '../../../shared/typo';
@@ -114,10 +115,10 @@ export const SkillSection = () => {
         <Grid item xs={12} container >
           {
             dataReducer.Skills.data.length > 0 ?
-              <Typo txt={dataReducer.Skills.data.join(', ')} />
+              <Typo size={resumeFontSize} txt={dataReducer.Skills.data.join(', ')} />
               :
               <Typo txt={
-                dataReducer.About.data.value || 'Include 2-3 sentences about yourself'
+                dataReducer.About.data.value || 'Enter 3-4 skills'
               } />
           }
         </Grid>
