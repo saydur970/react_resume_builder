@@ -7,6 +7,14 @@ import { Typo } from '../../shared/typo';
 import { SkillSection } from './items/skills';
 import { EducationSection } from './items/education';
 
+export type TySectionInputProperty = {
+  value: string;
+  isTouched: boolean;
+  isOptional?: boolean;
+  isValid: boolean;
+  errMsgList: string[];
+}
+
 interface IComp {
   sectionName: TSectionItemName;
 }

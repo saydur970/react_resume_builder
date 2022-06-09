@@ -1,13 +1,31 @@
-import { Fragment } from 'react'
+import { useState, useEffect, Fragment } from 'react'
 import { useResumeContext } from '../../context/resume.context';
 import { Grid } from '@mui/material';
 import { Typo } from '../../../shared/typo';
 import { SectionModel } from '../sectionModel';
-import { TxtField } from '../../comp/txtField';
+import { TxtField, TyTxtChangeHandlerParam } from '../../comp/txtField';
+import { TySectionInputProperty } from '..';
 
 export const AboutSection = () => {
 
-  const { dataReducer, utilState } = useResumeContext();
+  const { dataReducer, dataDispatch, utilState } = useResumeContext();
+  const [aboutInput, setAboutInput] = useState<TySectionInputProperty>({
+    isTouched: false,
+    isValid: false,
+    value: dataReducer.About,
+    isOptional: false,
+    errMsgList: []
+  })
+
+  useEffect(() => {
+
+    if(aboutInput.isValid) {
+      dataDispatch({ type: 'about', payload: aboutInput.value })
+    }
+
+  }, [aboutInput, dataDispatch])
+
+  console.log(aboutInput);
 
 
   return (
@@ -21,9 +39,13 @@ export const AboutSection = () => {
 
           childrenInput={(
           <Grid item xs={12}>
-            <TxtField value={dataReducer.About}
-              dispatchType={{ type: 'initial_data_name' }}
+            <TxtField 
               label="Write about yourself"
+              inputProp={aboutInput}
+              setInputProp={setAboutInput}
+              validators={[
+                { type: 'required', errMsg: 'About section should not be empty' }
+              ]}
             />
           </Grid>
           )}

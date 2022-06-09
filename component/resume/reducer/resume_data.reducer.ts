@@ -33,13 +33,12 @@ export const resumeDataReducer =
 
   switch(action.type) {
 
-    case 'initial_data_name': {
-      
-      // ==================== Handle About section =========================
-      const currentVal = state.About;
+    // ==================== Handle About section =========================
+    case 'about': {
 
       return {
-        ...state
+        ...state,
+        About: action.payload
       }
 
     }

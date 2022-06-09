@@ -65,6 +65,7 @@ export type TResumeDataReducer = {
 
 export type TResumeDataDispatchAction =
   { type: 'initial_data_name', payload: string } |
+  { type: 'about', payload: string } |
   { type: 'skills_add', payload: string } |
   { type: 'skills_remove', payload: number }
 

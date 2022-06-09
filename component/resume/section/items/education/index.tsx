@@ -1,4 +1,4 @@
-import { useState, Fragment } from 'react';
+import { useState, useReducer, Fragment } from 'react';
 import { resumeFontSize } from '../../..';
 import { useResumeContext } from '../../../context/resume.context';
 import { Grid, IconButton } from '@mui/material';
@@ -6,6 +6,7 @@ import { Typo } from '../../../../shared/typo';
 import { SectionModel } from '../../sectionModel';
 import { TxtField } from '../../../comp/txtField';
 import { EduInputList } from './inputList';
+import { TySectionInputProperty } from '../..';
 
 export interface IEducationSectionInput {
   instituteName:  string;
@@ -17,13 +18,47 @@ export interface IEducationSectionInput {
   comment?:  string;
 }
 
+export interface IEducationSectionInput2 {
+  instituteName: TySectionInputProperty;
+  subject: TySectionInputProperty;
+  completionDate:  {
+    year: number; month: string
+  }|null;
+  result: TySectionInputProperty;
+  comment: TySectionInputProperty;
+}
+
+export type TEduItemDispatchAction =
+  { type: 'initial_data_name', payload: string } |
+  { type: 'skills_add', payload: string } |
+  { type: 'skills_remove', payload: number }
+
+export type IEduItemReducer = {
+  inputs: IEducationSectionInput2,
+  isValid: boolean;
+}
+
+const eduReducer = (state: IEduItemReducer, action: TEduItemDispatchAction): IEduItemReducer => {
+
+  return { ...state }
+
+}
+
 export const EducationSection = () => {
 
   const { dataReducer, utilState, dataDispatch } = useResumeContext();
-
   const [eduInput, setEduInput] = useState<IEducationSectionInput|null>(null);
 
-  console.log(eduInput);
+  const [eduItemInput, eduItemDispatch] = useReducer(eduReducer, {
+    inputs: {
+      instituteName: { value: '', isTouched: false, isValid: false },
+      subject: { value: '', isTouched: false, isValid: false },
+      completionDate: null,
+      result: { value: '', isTouched: false, isValid: false, isOptional: true },
+      comment: { value: '', isTouched: false, isValid: false, isOptional: true },
+    },
+    isValid: false
+  })
 
   return (
     <Fragment>
@@ -36,7 +71,9 @@ export const EducationSection = () => {
 
           childrenInput={(
             <Grid item xs={12} container>
-              <EduInputList eduInput={eduInput} setEduInput={setEduInput} />
+              <EduInputList eduInput={eduInput} setEduInput={setEduInput}
+                eduItemInput={eduItemInput} eduItemDispatch={eduItemDispatch}
+              />
             </Grid>
           )}
 

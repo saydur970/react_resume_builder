@@ -2,13 +2,16 @@
 import { FC, Dispatch, SetStateAction } from 'react';
 import { Grid, TextField } from '@mui/material';
 // types
-import { IEducationSectionInput } from '.';
+import { IEducationSectionInput, IEduItemReducer, TEduItemDispatchAction } from '.';
 import { TxtInput } from '../../../comp/txtInput';
 import { DatePicker } from '../../../comp/datePicker';
 
 interface IComp {
   eduInput: IEducationSectionInput | null;
-  setEduInput: Dispatch<SetStateAction<IEducationSectionInput | null>>
+  setEduInput: Dispatch<SetStateAction<IEducationSectionInput | null>>;
+
+  eduItemInput: IEduItemReducer;
+  eduItemDispatch: Dispatch<TEduItemDispatchAction>
 }
 
 const default_date = {
