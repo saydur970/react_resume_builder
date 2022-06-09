@@ -8,61 +8,43 @@ export type TSectionItemName = 'initial_data'| 'About'| 'Experiences'| 'Educatio
 export type TResumeDataReducer = {
 
   initial_data: {
-    data: {
-      firstName: fieldErrorMsg & { value: string };
-      lastName: fieldErrorMsg & { value: string };
-      email: fieldErrorMsg & { value: string };
-      phoneNumber: fieldErrorMsg & { value: string };
-      address: fieldErrorMsg & { value: string };
-      district: fieldErrorMsg & { value: string };
-      division: fieldErrorMsg & { value: string };
-    };
-    validation: TIsSectionValid
+    firstName: string;
+    lastName: string;
+    email: string;
+    phoneNumber: string;
+    address: string;
+    district: string;
+    division: string;
   };
 
-  About: {
-    data: fieldErrorMsg & { value: string; };
-    validation: TIsSectionValid;
-  };
+  About: string;
 
   Experiences: {
-    data: {
-      [key: number]: {
-        organizationName: fieldErrorMsg & { value: string };
-        role: fieldErrorMsg & { value: string };
-        startDate: fieldErrorMsg & { value: Date };
-        endDate?: fieldErrorMsg & { value: Date };
-        isCurrentlyEmployed: fieldErrorMsg & { value: boolean };
-        district: fieldErrorMsg & { value: string };
-        division: fieldErrorMsg & { value: string };
-        comment?: fieldErrorMsg & { value: string };
-      };
+    [key: number]: {
+      organizationName: fieldErrorMsg & { value: string };
+      role: fieldErrorMsg & { value: string };
+      startDate: fieldErrorMsg & { value: Date };
+      endDate?: fieldErrorMsg & { value: Date };
+      isCurrentlyEmployed: fieldErrorMsg & { value: boolean };
+      district: fieldErrorMsg & { value: string };
+      division: fieldErrorMsg & { value: string };
+      comment?: fieldErrorMsg & { value: string };
     };
-    err: fieldErrorMsg;
-    validation: TIsSectionValid
   };
 
   Education: {
-    data: {
-      [key: number]: {
-        instituteName: fieldErrorMsg & { value: string };
-        subject: fieldErrorMsg & { value: string };
-        completionDate: fieldErrorMsg & { value: {
-          year: number; month: string;
-        }|null };
-        result?: fieldErrorMsg & { value: string };
-        comment?: fieldErrorMsg & { value: string };
-      };
+    [key: number]: {
+      instituteName: fieldErrorMsg & { value: string };
+      subject: fieldErrorMsg & { value: string };
+      completionDate: fieldErrorMsg & { value: {
+        year: number; month: string;
+      }|null };
+      result?: fieldErrorMsg & { value: string };
+      comment?: fieldErrorMsg & { value: string };
     };
-    err: fieldErrorMsg;
-    validation: TIsSectionValid
   };
 
-  Skills: {
-    data: string[];
-    err: fieldErrorMsg;
-    validation: TIsSectionValid
-  };
+  Skills: string[];
 
   // Skills: {
   //   data: {
@@ -72,23 +54,11 @@ export type TResumeDataReducer = {
   //   validation: TIsSectionValid
   // };
 
-  Work: {
-    data: fieldErrorMsg & { value: string; };
-    validation: TIsSectionValid;
-  };
+  Work: string;
 
-  Projects: {
-    data: fieldErrorMsg & { value: string; };
-    validation: TIsSectionValid;
-  },
+  Projects: string;
 
-  References: {
-    data: {
-      [key: number]: fieldErrorMsg & { value: string };
-    };
-    err: fieldErrorMsg;
-    validation: TIsSectionValid;
-  }
+  References: string
 
 }
 

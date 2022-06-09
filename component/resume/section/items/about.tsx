@@ -21,7 +21,7 @@ export const AboutSection = () => {
 
           childrenInput={(
           <Grid item xs={12}>
-            <TxtField value={dataReducer.About.data.value}
+            <TxtField value={dataReducer.About}
               dispatchType={{ type: 'initial_data_name' }}
               label="Write about yourself"
             />
@@ -35,7 +35,7 @@ export const AboutSection = () => {
       <Grid item xs={12} container >
 
         <Grid item xs={12}>
-          <Typo txt={dataReducer.About.data.value || 'Include 2-3 sentences about yourself'} />
+          <Typo txt={dataReducer.About || 'Include 2-3 sentences about yourself'} />
         </Grid>
 
       </Grid>

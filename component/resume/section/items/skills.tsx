@@ -56,7 +56,7 @@ export const SkillSection = () => {
 
               <Grid item xs={12} container>
                 {
-                  dataReducer.Skills.data.map((el, idx) => (
+                  dataReducer.Skills.map((el, idx) => (
                     <div key={`${el}_${idx}`}
                       style={{
                         display: 'flex', alignItems: 'center', justifyContent: 'center',
@@ -114,11 +114,12 @@ export const SkillSection = () => {
 
         <Grid item xs={12} container >
           {
-            dataReducer.Skills.data.length > 0 ?
-              <Typo size={resumeFontSize} txt={dataReducer.Skills.data.join(', ')} />
+            dataReducer.Skills.length > 0 ?
+              <Typo size={resumeFontSize} txt={dataReducer.Skills.join(', ')} />
               :
               <Typo txt={
-                dataReducer.About.data.value || 'Enter 3-4 skills'
+                // dataReducer.About.value || 'Enter 3-4 skills'
+                'Enter 3-4 skills'
               } />
           }
         </Grid>

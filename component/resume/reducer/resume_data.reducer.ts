@@ -3,56 +3,28 @@ import { TResumeDataDispatchAction, TResumeDataReducer } from '../types/resume_s
 export const resumeDataReducerInitial: TResumeDataReducer = {
 
   initial_data: {
-    data: {
-      firstName: { errMsg: null, value: '' },
-      lastName: { errMsg: null, value: '' },
-      email: { errMsg: null, value: '' },
-      phoneNumber: { errMsg: null, value: '' },
-      address: { errMsg: null, value: '' },
-      district: { errMsg: null, value: '' },
-      division: { errMsg: null, value: '' },
-    },
-    validation: { isValid: false, isChecked: false }
+    firstName: '',
+    lastName: '',
+    email: '',
+    phoneNumber: '',
+    address: '',
+    district: '',
+    division: ''
   },
 
-  About: {
-    data: { errMsg: null, value: '' },
-    validation: { isValid: false, isChecked: false }
-  },
+  About: '',
 
-  Experiences: {
-    data: { },
-    err: { errMsg: null },
-    validation: { isValid: false, isChecked: false }
-  },
+  Experiences: {},
 
-  Education: {
-    data: {},
-    err: { errMsg: null },
-    validation: { isValid: false, isChecked: false }
-  },
+  Education: {},
 
-  Skills: {
-    data: [],
-    err: { errMsg: null },
-    validation: { isValid: false, isChecked: false }
-  },
+  Skills: [],
 
-  Work: {
-    data: { errMsg: null, value: '' },
-    validation: { isValid: false, isChecked: false }
-  },
+  Work: '',
 
-  Projects: {
-    data: { errMsg: null, value: '' },
-    validation: { isValid: false, isChecked: false }
-  },
+  Projects: '',
 
-  References: {
-    data: {},
-    err: { errMsg: null },
-    validation: { isValid: false, isChecked: false }
-  }
+  References: ''
 
 };
 
@@ -67,41 +39,27 @@ export const resumeDataReducer =
       const currentVal = state.About;
 
       return {
-        ...state,
-        About: {
-          ...currentVal,
-          data: {
-            ...currentVal.data,
-            value: action.payload
-          }
-        }
+        ...state
       }
 
     }
 
     // ==================== Skill Add section =========================
     case 'skills_add': {
-      const currentVal = state.Skills.data;
       return {
         ...state,
-        Skills: {
-          ...state.Skills,
-          data: [...currentVal, action.payload]
-        }
+        Skills: [...state.Skills, action.payload]
       }
     }
 
     // ==================== Skill remove section =========================
     case 'skills_remove': {
-      const newSkillList = [...state.Skills.data];
+      const newSkillList = [...state.Skills];
       newSkillList.splice(action.payload, 1);
 
       return {
         ...state,
-        Skills: {
-          ...state.Skills,
-          data: [...newSkillList]
-        }
+        Skills: [...newSkillList]
       }
     }
 
