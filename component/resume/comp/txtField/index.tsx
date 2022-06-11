@@ -11,43 +11,79 @@ export type TyTxtChangeHandlerParam = { value: string, isValid: boolean };
 interface IComp {
   submitHanlder?: () => void;
   label: string;
-  validators: input_validators[];
+  validators?: input_validators[];
   inputProp: TySectionInputProperty;
-  setInputProp: Dispatch<SetStateAction<TySectionInputProperty>>
+  setInputProp?: Dispatch<SetStateAction<TySectionInputProperty>>;
+  changeHanlder?: (input: TySectionInputProperty) => void;
 }
 
-export const TxtField: FC<IComp> = ({ inputProp, setInputProp, submitHanlder, label, validators }) => {
+export const TxtField: FC<IComp> = ({ inputProp, setInputProp, changeHanlder, submitHanlder, label, validators }) => {
 
-  const changeHandler = (e: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
+  const onChangeHandler = (e: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
 
     const currentValue = e.target.value;
-    const { isValid, errMsg } = inputValidate(currentValue, validators);
+    const { isValid, errMsg } = inputValidate(currentValue, validators||[]);
 
-    setInputProp({
-      ...inputProp,
-      value: currentValue,
-      isValid,
-      errMsgList: [...errMsg]
-    })
-  }
-
-  const focusHandler = () => {
-    if(!inputProp.isTouched) {
-      const { isValid, errMsg } = inputValidate(inputProp.value, validators);
-      setInputProp({
+    if(changeHanlder) {
+      changeHanlder({
         ...inputProp,
+        value: currentValue,
         isValid,
         errMsgList: [...errMsg]
       })
     }
 
+    if(setInputProp) {
+      setInputProp({
+        ...inputProp,
+        value: currentValue,
+        isValid,
+        errMsgList: [...errMsg]
+      })
+    }
+  }
+
+  const focusHandler = () => {
+    if(!inputProp.isTouched) {
+      const { isValid, errMsg } = inputValidate(inputProp.value, validators||[]);
+
+      if(changeHanlder) {
+        changeHanlder({
+          ...inputProp,
+          isValid,
+          errMsgList: [...errMsg]
+        })
+      }
+
+      if(setInputProp) {
+        setInputProp({
+          ...inputProp,
+          isValid,
+          errMsgList: [...errMsg]
+        })
+      }
+
+
+    }
+
   }
 
   const blurHandler = () => {
-    setInputProp({
-      ...inputProp,
-      isTouched: true
-    })
+
+    if(changeHanlder) {
+      changeHanlder({
+        ...inputProp,
+        isTouched: true
+      })
+    }
+
+    if(setInputProp) {
+      setInputProp({
+        ...inputProp,
+        isTouched: true
+      })
+    }
+
   }
 
   const keyDownHandler = (e: KeyboardEvent<HTMLDivElement>) => {
@@ -65,7 +101,7 @@ export const TxtField: FC<IComp> = ({ inputProp, setInputProp, submitHanlder, la
         <TextField id="standard-basic" label={label}
           variant="standard" fullWidth={true} value={inputProp.value}
           multiline={submitHanlder ? false : true}
-          onChange={e => changeHandler(e)}
+          onChange={e => onChangeHandler(e)}
           onBlur={blurHandler}
           onFocus={focusHandler}
           onKeyDown={e => keyDownHandler(e)}
@@ -85,7 +121,7 @@ export const TxtField: FC<IComp> = ({ inputProp, setInputProp, submitHanlder, la
       <Grid item xs={12} sx={{ marginTop: '1rem' }} >
         {
           inputProp.errMsgList.length > 0 && inputProp.isTouched ? (
-            <Typo txt={inputProp.errMsgList[0]} color="red" />
+            <Typo txt={inputProp.errMsgList[0]} size="1.3rem" color="red" margin="0rem" />
           ) : ''
         }
       </Grid>

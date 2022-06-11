@@ -1,4 +1,4 @@
-import { useState, useReducer, Fragment } from 'react';
+import { useState, useReducer, useEffect, Fragment } from 'react';
 import { resumeFontSize } from '../../..';
 import { useResumeContext } from '../../../context/resume.context';
 import { Grid, IconButton } from '@mui/material';
@@ -8,54 +8,140 @@ import { TxtField } from '../../../comp/txtField';
 import { EduInputList } from './inputList';
 import { TySectionInputProperty } from '../..';
 
-export interface IEducationSectionInput {
-  instituteName:  string;
-  subject:  string;
-  completionDate:  {
-    year: number; month: string;
-  }|null;
-  result?:  string;
-  comment?:  string;
-}
+export type IEducationSectionGeneralProperty = 
+'instituteName' | 'subject' | 'result' | 'comment';
 
-export interface IEducationSectionInput2 {
-  instituteName: TySectionInputProperty;
-  subject: TySectionInputProperty;
-  completionDate:  {
-    year: number; month: string
-  }|null;
-  result: TySectionInputProperty;
-  comment: TySectionInputProperty;
+export type IEducationSectionGeneralInput = {
+  [key in IEducationSectionGeneralProperty]: TySectionInputProperty;
 }
 
 export type TEduItemDispatchAction =
-  { type: 'initial_data_name', payload: string } |
-  { type: 'skills_add', payload: string } |
-  { type: 'skills_remove', payload: number }
+  { type: 'extraInput_completionDate_year', payload: number } |
+  { type: 'extraInput_completionDate_month', payload: string } |
+  { type: 'general_input', payload: { 
+    id: IEducationSectionGeneralProperty,
+    value: TySectionInputProperty } 
+  } |
+  { type: 'check_validity', payload: { 
+    id: IEducationSectionGeneralProperty,
+    isValid: boolean } 
+  };
 
 export type IEduItemReducer = {
-  inputs: IEducationSectionInput2,
+  generalInput: IEducationSectionGeneralInput;
+  extraInputs: {
+    completionDate: {
+      year: number; month: string
+    } | null;
+  };
   isValid: boolean;
 }
 
-const eduReducer = (state: IEduItemReducer, action: TEduItemDispatchAction): IEduItemReducer => {
+export const education_completion_default_date = {
+  year: 2022, month: 'Jan'
+}
 
-  return { ...state }
+const eduReducer = (state: IEduItemReducer, action: TEduItemDispatchAction): 
+IEduItemReducer => {
+
+  switch (action.type) {
+
+    // =============== handle generalInput ===============
+    case 'general_input': {
+
+      return {
+        ...state,
+        generalInput: {
+          ...state.generalInput,
+          [action.payload.id]: {...action.payload.value}
+        }
+      }
+
+    }
+
+
+    // =============== handle completionDate year ===============
+    case 'extraInput_completionDate_year': {
+
+      const currentValue = state.extraInputs.completionDate ?
+        { ...state.extraInputs.completionDate } : { ...education_completion_default_date }
+
+      return {
+        ...state,
+        extraInputs: {
+          ...state.extraInputs,
+          completionDate: { ...currentValue, year: action.payload }
+        }
+      }
+    };
+
+    // =============== handle completionDate year ===============
+    case 'extraInput_completionDate_month': {
+
+      const currentValue = state.extraInputs.completionDate ?
+        { ...state.extraInputs.completionDate } : { ...education_completion_default_date }
+
+      return {
+        ...state,
+        extraInputs: {
+          ...state.extraInputs,
+          completionDate: { ...currentValue, month: action.payload }
+        }
+      }
+    };
+
+    // ===================== check validity =====================
+    case 'check_validity': {
+
+      let isValid = true;
+
+      Object.keys(state.generalInput).forEach((item) => {
+
+        const el = item as IEducationSectionGeneralProperty;
+        const currentInput = state.generalInput[el];
+
+        if(currentInput.isOptional !== true) {
+
+          if(el === action.payload.id) {
+            isValid = isValid && action.payload.isValid
+          }
+          else {
+            isValid = isValid && currentInput.isValid;
+          }
+
+        }
+
+      });
+
+
+      return {
+        ...state,
+        isValid
+      }
+
+    }
+
+
+    default:
+      return { ...state }
+  }
+
 
 }
 
 export const EducationSection = () => {
 
   const { dataReducer, utilState, dataDispatch } = useResumeContext();
-  const [eduInput, setEduInput] = useState<IEducationSectionInput|null>(null);
 
-  const [eduItemInput, eduItemDispatch] = useReducer(eduReducer, {
-    inputs: {
-      instituteName: { value: '', isTouched: false, isValid: false },
-      subject: { value: '', isTouched: false, isValid: false },
-      completionDate: null,
-      result: { value: '', isTouched: false, isValid: false, isOptional: true },
-      comment: { value: '', isTouched: false, isValid: false, isOptional: true },
+  const [eduItemReducer, eduItemDispatch] = useReducer(eduReducer, {
+    generalInput: {
+      instituteName: { value: '', isTouched: false, isValid: false, errMsgList: [] },
+      subject: { value: '', isTouched: false, isValid: false, errMsgList: [] },
+      result: { value: '', isTouched: false, isValid: false, isOptional: true, errMsgList: [] },
+      comment: { value: '', isTouched: false, isValid: false, isOptional: true, errMsgList: [] },
+    },
+    extraInputs: {
+      completionDate: null
     },
     isValid: false
   })
@@ -71,8 +157,8 @@ export const EducationSection = () => {
 
           childrenInput={(
             <Grid item xs={12} container>
-              <EduInputList eduInput={eduInput} setEduInput={setEduInput}
-                eduItemInput={eduItemInput} eduItemDispatch={eduItemDispatch}
+              <EduInputList eduItemReducer={eduItemReducer} 
+                eduItemDispatch={eduItemDispatch}
               />
             </Grid>
           )}
@@ -85,7 +171,7 @@ export const EducationSection = () => {
       }
 
       <Grid item xs={12} container>
-        
+
         <Typo txt="education" />
 
       </Grid>

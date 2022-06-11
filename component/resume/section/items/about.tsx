@@ -25,8 +25,6 @@ export const AboutSection = () => {
 
   }, [aboutInput, dataDispatch])
 
-  console.log(aboutInput);
-
 
   return (
     <Fragment>
